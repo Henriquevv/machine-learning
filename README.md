@@ -1,6 +1,6 @@
 
-- [Linear Regression](#Linear-Regression)
--
+- [Linear Regression](#Linear-Regression) |
+
 
 # Linear Regression
 
@@ -28,12 +28,16 @@ The final cell will also predict expenses using the test_dataset and graph the r
 ```
 dataset.tail()
 ```
+Importando dados:  
+
 ![image](https://github.com/Henriquevv/machine-learning/assets/71598959/63254540-b438-48f4-9c02-22bcc9b53b5a)
 
 
 ```
 dataset.head()
 ```
+Dataset após conversão dos Categorical Data em Numeric Data:  
+
 ![image](https://github.com/Henriquevv/machine-learning/assets/71598959/7cd347a8-a4ca-47b7-81e6-d7d90e508c28)
 
 
@@ -42,12 +46,16 @@ print(len(train_dataset))
 print(len(test_dataset))
 train_dataset.head()
 ```
+Tamanho do ```train_dataset``` e ```test_dataset```. Visualização do ```train_dataset```:  
+
 ![image](https://github.com/Henriquevv/machine-learning/assets/71598959/b7e5ca9e-da52-49da-a450-037463bc1dbf)
 
 
 ```
 train_labels.head()
 ```
+Visualização da coluna ```expenses``` do ```train_dataset```  
+
 ![image](https://github.com/Henriquevv/machine-learning/assets/71598959/096c26a5-7c15-41df-b98f-a5e45d09303c)
 
 
@@ -55,6 +63,8 @@ train_labels.head()
 model.build()
 model.summary()
 ```
+Visualização do modelo e suas camadas:  
+
 ![image](https://github.com/Henriquevv/machine-learning/assets/71598959/fda193dc-0893-4805-908b-ecea89f3f545)
 
 
@@ -68,4 +78,6 @@ plt.xlim(lims)
 plt.ylim(lims)
 _ = plt.plot(lims,lims)
 ```
+Resultado Final após alimentação do modelo:  
+
 ![image](https://github.com/Henriquevv/machine-learning/assets/71598959/9bb3ee4c-e25c-4e80-b991-6db477ffe7bc)
