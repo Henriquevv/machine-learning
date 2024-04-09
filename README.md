@@ -54,7 +54,7 @@ Tamanho do ```train_dataset``` e ```test_dataset```. Visualização do ```train_
 ```
 train_labels.head()
 ```
-Visualização da coluna ```expenses``` do ```train_dataset```  
+Visualização da coluna ```expenses``` do ```train_dataset```:  
 
 ![image](https://github.com/Henriquevv/machine-learning/assets/71598959/096c26a5-7c15-41df-b98f-a5e45d09303c)
 
