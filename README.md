@@ -1,5 +1,5 @@
 
-- [Linear Regression](#Linear-Regression) | [K-NN Algorithm](#K-NN-Algorithm)
+- [Linear Regression](#Linear-Regression) | [K-NN Algorithm](#K-NN-Algorithm) | [Convolutional neural network](#Convolutional-neural-network)
 
 
 # Linear Regression
@@ -133,4 +133,92 @@ test_book_recommendation()
 - Gráfico de Clustering
 
 ![image](https://github.com/Henriquevv/machine-learning/assets/71598959/939579d6-3cea-41cb-b89f-2247ef4a2217)
+
+
+# Convolutional neural network  
+For this challenge, you will complete the code to classify images of dogs and cats. You will use TensorFlow 2.0 and Keras to create a convolutional neural network that correctly classifies images of cats and dogs at least 63% of the time. (Extra credit if you get it to 70% accuracy!)
+
+### Demonstração de código
+
+- Mostrar algumas imagens do banco de dados:
+```
+def plotImages(images_arr, probabilities = False):
+    fig, axes = plt.subplots(len(images_arr), 1, figsize=(5,len(images_arr) * 3))
+    if probabilities is False:
+      for img, ax in zip( images_arr, axes):
+          ax.imshow(img)
+          ax.axis('off')
+    else:
+      for img, probability, ax in zip( images_arr, probabilities, axes):
+          ax.imshow(img)
+          ax.axis('off')
+          if probability > 0.5:
+              ax.set_title("%.2f" % (probability*100) + "% dog")
+          else:
+              ax.set_title("%.2f" % ((1-probability)*100) + "% cat")
+    plt.show()
+
+sample_training_images, _ = next(train_data_gen)
+plotImages(sample_training_images[:5])
+```
+
+![image](https://github.com/Henriquevv/machine-learning/assets/71598959/32863bdd-0f1a-401c-b2b6-41550dd6188c)
+
+- Adicionando transformações às imagens para evitar overfitting:
+  ```
+  train_image_generator = ImageDataGenerator(
+    rescale=1/255,
+    rotation_range=40,
+    width_shift_range=0.2,  
+    height_shift_range=0.2,
+    shear_range=0.2,
+    zoom_range=0.2,
+    horizontal_flip=True,
+    fill_mode='nearest')
+
+  train_data_gen = train_image_generator.flow_from_directory(
+    batch_size=batch_size,
+    directory=train_dir,
+    target_size=(IMG_HEIGHT, IMG_WIDTH),
+    class_mode='binary')
+
+  augmented_images = [train_data_gen[0][0][0] for i in range(5)]
+
+  plotImages(augmented_images)
+  ```
+
+  ![image](https://github.com/Henriquevv/machine-learning/assets/71598959/3ba5741c-26fd-4c7f-8b4c-0bda997819e8)
+
+- Criando o modelo:
+    ```
+    model = Sequential()
+    model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(150,150,3)))
+    model.add(MaxPooling2D(pool_size=(2,2)))
+    model.add(Conv2D(64, (3, 3), activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Conv2D(64, (3, 3), activation='relu'))
+    model.add(Flatten())
+    model.add(Dense(64, activation="relu"))
+    model.add(Dense(2))
+    
+    model.compile(
+        optimizer='adam',
+        loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+        metrics=['accuracy'])
+    
+    
+    model.summary()
+     ```
+
+    ![image](https://github.com/Henriquevv/machine-learning/assets/71598959/36f7eeca-049a-4732-9585-215527779c4f)
+
+- Vizualização da "Accuracy" e "Loss" do modelo:
+
+  ![image](https://github.com/Henriquevv/machine-learning/assets/71598959/31aae26f-393b-4d90-b837-f10c0a5dd72a)
+
+- Testando o modelo:
+
+  ![image](https://github.com/Henriquevv/machine-learning/assets/71598959/e750b0a2-5b18-4bc8-bf30-6ab793c20352)
+
+
 
